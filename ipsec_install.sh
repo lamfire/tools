@@ -105,16 +105,7 @@ conn %default
      rightsourceip=10.11.0.0/24  
      dpdaction=clear
      fragmentation=yes
-conn ikev2_psk_eap_ios
-    keyexchange=ikev2
-    rekey=no
-    leftid=vpn
-    left=%any
-    leftauth=psk
-    right=%any
-    rightauth=eap-mschapv2
-    eap_identity=%any
-    auto=add
+
 conn ikev1_xauth_psk_ipsec
     keyexchange=ikev1
     left=%defaultroute
@@ -122,6 +113,23 @@ conn ikev1_xauth_psk_ipsec
     right=%any
     rightauth=psk
     rightauth2=xauth
+    auto=add
+
+conn ikev2_eap 
+    keyexchange=ikev2 
+    ike=aes256-sha256-modp2048,3des-sha1-modp2048,aes256-sha1-modp2048!,aes256-sha1-modp1024,aes128-sha1-modp1024,3des-sha1-modp1024!
+    esp=aes256-sha256,3des-sha1,aes256-sha1!
+    rekey=no
+    leftid=v.7788520.com 
+    left=%defaultroute 
+    leftsendcert=always 
+    leftcert=/etc/letsencrypt/live/v.7788520.com/fullchain.pem         
+    right=%any 
+    rightauth=eap-mschapv2 
+    rightsendcert=never 
+    eap_identity=%any 
+    dpdaction=clear 
+    fragmentation=yes 
     auto=add
 
 EOF
